@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APi template</title>
+</head>
+<body>
+    <form class="card-form" enctype="multipart/form-data" action="predict" method="POST">
+        <div class="input">
+            <input name="ecg" type="file" step="any"  class="input-field" required/>
+            <label  class="input-label"> Ecg</label>
+        </div>
+                    <div class="input">
+            <input name="ppg" type="file" step="any"  class="input-field" required/>
+            <label  class="input-label">ppg</label>
+        </div>
+        <div class="action">
+            <button type="submit" class="action-button">Submit</button>
+        </div>
+    </form>
+
+    <p style="color: darkred; font-weight: bold;">{{ prediction }}</p>
+    </body>
+</html>
