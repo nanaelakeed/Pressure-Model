@@ -32,7 +32,8 @@ def preprocessing(recieveecg, recieveppg):
 def index():
     return render_template('index.html')
 
-@app.route('/predict', methods=['POST'])
+
+@app.route('/predict', methods=['GET','POST'])
 def predict():
     if request.method == "POST":
         recieveecg=request.files['ecg']
@@ -43,16 +44,17 @@ def predict():
 
     return render_template('index.html', prediction = prediction )
 
-@app.route('/homeAPI', methods=['POST'])
+@app.route('/homeAPI', methods=['GET','POST'])
 def homeAPI():
     try:
-        if request.method == "POST":
-            recieveecg=request.files['ecg']
-            recieveppg = request.files['ppg']
-            d = preprocessing(recieveecg, recieveppg)
-            firstprediction = model.predict(d)
-            prediction=sum((firstprediction[0]*150)+50)/1000
-            return jsonify({'prediction': prediction})
+        if 'ecg' not in request.files and 'ppg' not in request.files:
+            return "Please try again. The files doesn't exist"
+        recieveecg=request.files['ecg']
+        recieveppg = request.files['ppg']
+        d = preprocessing(recieveecg, recieveppg)
+        firstprediction = model.predict(d)
+        prediction=sum((firstprediction[0]*150)+50)/1000
+        return jsonify({'prediction': prediction})
     except:
         return jsonify({'Error': 'Error occur'})
 
