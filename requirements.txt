@@ -1,4 +1,5 @@
 gunicorn
+pandas==1.5.3
 flask
 keras
 tensorflow==2.12.0
